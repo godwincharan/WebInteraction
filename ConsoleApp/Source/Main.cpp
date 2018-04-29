@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <curl/curl.h>
+#include "GetWikiContent.h"
 
 int main(int argc, char **argv){
     if(argc < 2){
@@ -28,6 +29,11 @@ int main(int argc, char **argv){
         return 1;
     }
     
+    MemoryStruct chunk;
+    char* wikiPage = argv[2];
+    if ( getWikiContent(&chunk, wikiPage) == 0){
+        printf("%s\n", chunk.memory);
+    }
     /* get a curl handle */
     CURL *curl = curl_easy_init();
     
