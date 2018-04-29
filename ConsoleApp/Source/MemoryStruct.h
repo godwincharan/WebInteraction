@@ -22,6 +22,17 @@ typedef struct MemoryStruct {
         }
         memory[0] = '\0';
     }
+    
+    MemoryStruct(const MemoryStruct& inData){
+        size = inData.size;
+        memory = (char*)malloc(inData.size);
+        if (memory == NULL) {
+            fprintf(stderr, "malloc() failed\n");
+            exit(EXIT_FAILURE);
+        }
+        memcpy(memory, inData.memory, inData.size);
+    }
+    
     ~MemoryStruct(){
         free(memory);
     }

@@ -59,7 +59,6 @@ int getWikiContent(MemoryStruct* chunk,char* title){
         }
         else {
             iReturnValue = 0;
-            printf("%lu bytes retrieved\n", (long)chunk->size);
         }
                 
         /* always cleanup */

@@ -15,11 +15,12 @@
 #include <curl/curl.h>
 #include "GetWikiContent.h"
 #include "Authenticate.hpp"
+#include "PostData.hpp"
 #include "MemoryStruct.h"
 
 int main(int argc, char **argv){
-    if(argc < 2){
-        fprintf(stderr, "URL not specified\n");
+    if(argc < 3){
+        fprintf(stderr, "Usage: ConsoleApp\n");
         return 1;
     }
 
@@ -42,7 +43,12 @@ int main(int argc, char **argv){
     if ( authenticateUser(&authData, url) == 0){
         printf("%s\n", authData.memory);
     }
-        
+    
+    char* uploadUrl= argv[3];
+    if ( postData(&wikiData, uploadUrl) == 0){
+        printf("Uploaded data succefully");
+    }
+    
     curl_global_cleanup();
     
     return 0;
