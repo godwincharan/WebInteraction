@@ -17,6 +17,7 @@
 		545DCBECA38F145180F9758A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B73E0A8BF52132EB4292BDA /* AVFoundation.framework */; };
 		5FF6A323127C87C156CB84BB /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = C524E6AC3819E6894E837819 /* include_juce_audio_basics.mm */; };
 		701236FC20959BEA0098380E /* GetWikiContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 701236FA20959BEA0098380E /* GetWikiContent.cpp */; };
+		7088788820962BC600F3E8D8 /* Authenticate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7088788620962BC600F3E8D8 /* Authenticate.cpp */; };
 		70A69ECB2094E49400528108 /* libcurl.4.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A69ECA2094E49300528108 /* libcurl.4.tbd */; };
 		7D2B339E12D6E43AEF77DE59 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9C197B9C63B85C07F6D7018E /* RecentFilesMenuTemplate.nib */; };
 		7E4765DFAD4D79D453311C18 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A299D74BEE2A4D2AC63F24C6 /* Main.cpp */; };
@@ -61,6 +62,9 @@
 		69DAB3ECFE151565B398C1DB /* juce_cryptography */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_cryptography; path = /Users/Charan/Desktop/Projects/OthersProjects/Sounite/WebInteraction/JUCE/modules/juce_cryptography; sourceTree = "<absolute>"; };
 		701236FA20959BEA0098380E /* GetWikiContent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GetWikiContent.cpp; path = ../../Source/GetWikiContent.cpp; sourceTree = "<group>"; };
 		701236FB20959BEA0098380E /* GetWikiContent.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = GetWikiContent.h; path = ../../Source/GetWikiContent.h; sourceTree = "<group>"; };
+		7088788620962BC600F3E8D8 /* Authenticate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Authenticate.cpp; path = ../../Source/Authenticate.cpp; sourceTree = "<group>"; };
+		7088788720962BC600F3E8D8 /* Authenticate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Authenticate.hpp; path = ../../Source/Authenticate.hpp; sourceTree = "<group>"; };
+		7088788920962C7700F3E8D8 /* MemoryStruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MemoryStruct.h; path = ../../Source/MemoryStruct.h; sourceTree = "<group>"; };
 		70A69ECA2094E49300528108 /* libcurl.4.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.4.tbd; path = usr/lib/libcurl.4.tbd; sourceTree = SDKROOT; };
 		75E31F03168ACD91BA5E55E1 /* include_juce_gui_extra.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_gui_extra.mm; path = ../../JuceLibraryCode/include_juce_gui_extra.mm; sourceTree = SOURCE_ROOT; };
 		7D02AC4391B0E1B7BD1B4B51 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -202,8 +206,11 @@
 			isa = PBXGroup;
 			children = (
 				A299D74BEE2A4D2AC63F24C6 /* Main.cpp */,
+				7088788620962BC600F3E8D8 /* Authenticate.cpp */,
+				7088788720962BC600F3E8D8 /* Authenticate.hpp */,
 				701236FA20959BEA0098380E /* GetWikiContent.cpp */,
 				701236FB20959BEA0098380E /* GetWikiContent.h */,
+				7088788920962C7700F3E8D8 /* MemoryStruct.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -285,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7088788820962BC600F3E8D8 /* Authenticate.cpp in Sources */,
 				701236FC20959BEA0098380E /* GetWikiContent.cpp in Sources */,
 				7E4765DFAD4D79D453311C18 /* Main.cpp in Sources */,
 				5FF6A323127C87C156CB84BB /* include_juce_audio_basics.mm in Sources */,

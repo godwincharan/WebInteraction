@@ -9,12 +9,8 @@
 #define GetWikiContent_h
 
 #include <stdio.h>
+#include "MemoryStruct.h"
 
-typedef struct MemoryStruct {
-    char *memory;
-    int size;
-    MemoryStruct();
-}MemoryStruct;
 
 /** returns the content of the wiki page in MemoryStruck. The wiki page title needs to be passed as argument.
 
