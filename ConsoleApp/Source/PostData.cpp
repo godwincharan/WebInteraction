@@ -18,7 +18,7 @@ static size_t read_callback(void *dest, size_t size, size_t nmemb, void *userp)
     MemoryStruct *wt = (MemoryStruct *)userp;
     size_t buffer_size = size*nmemb;
     
-    if(wt->size) {
+    if(wt->size-dataCopiedSoFar) {
         /* copy as much as possible from the source to the destination */
         size_t copy_this_much = wt->size - dataCopiedSoFar;
         if(copy_this_much > buffer_size)

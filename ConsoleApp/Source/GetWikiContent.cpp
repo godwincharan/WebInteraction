@@ -32,7 +32,7 @@ int getWikiContent(MemoryStruct* chunk,char* title){
     CURL *curl = curl_easy_init();
     
     if(curl) {
-        std::string postFileds("action=query&prop=revisions&rvprop=content&rvsection=0&format=json&titles=");
+        std::string postFileds("format=json&action=query&prop=extracts&exintro=&explaintext=&titles=");
         postFileds += title;
         
         curl_easy_setopt(curl, CURLOPT_URL, "https://en.wikipedia.org/w/api.php");

@@ -358,7 +358,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Authenticate.cpp">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\GetWikiContent.cpp">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PostData.cpp">
       <Filter>ConsoleApp\Source</Filter>
     </ClCompile>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2103,6 +2112,18 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Authenticate.hpp">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GetWikiContent.h">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MemoryStruct.h">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PostData.hpp">
+      <Filter>ConsoleApp\Source</Filter>
+    </ClInclude>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
     </ClInclude>

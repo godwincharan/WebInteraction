@@ -3,7 +3,18 @@
 <JUCERPROJECT name="ConsoleApp" projectType="consoleapp" jucerVersion="5.3.1">
   <MAINGROUP id="w0QnJO" name="ConsoleApp">
     <GROUP id="{2715FD22-5833-7B3D-955C-3EC307E68470}" name="Source">
+      <FILE id="zXiDgO" name="Authenticate.cpp" compile="1" resource="0"
+            file="Source/Authenticate.cpp"/>
+      <FILE id="FpTHgb" name="Authenticate.hpp" compile="0" resource="0"
+            file="Source/Authenticate.hpp"/>
+      <FILE id="KzdTD2" name="GetWikiContent.cpp" compile="1" resource="0"
+            file="Source/GetWikiContent.cpp"/>
+      <FILE id="gnkWYO" name="GetWikiContent.h" compile="0" resource="0"
+            file="Source/GetWikiContent.h"/>
       <FILE id="ptRrki" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="TxKoRz" name="MemoryStruct.h" compile="0" resource="0" file="Source/MemoryStruct.h"/>
+      <FILE id="tzLkg5" name="PostData.cpp" compile="1" resource="0" file="Source/PostData.cpp"/>
+      <FILE id="hsA8Oa" name="PostData.hpp" compile="0" resource="0" file="Source/PostData.hpp"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>

@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9C58AEA3-3264-DA6D-3310-19A61B9CBA01}</ProjectGuid>
+    <ProjectGuid>{60076192-AD2D-F414-F195-6AC38FE6FB89}</ProjectGuid>
     <PlatformToolset>v140</PlatformToolset>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -148,7 +148,10 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Authenticate.cpp"/>
+    <ClCompile Include="..\..\Source\GetWikiContent.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
+    <ClCompile Include="..\..\Source\PostData.cpp"/>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1760,6 +1763,10 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Authenticate.hpp"/>
+    <ClInclude Include="..\..\Source\GetWikiContent.h"/>
+    <ClInclude Include="..\..\Source\MemoryStruct.h"/>
+    <ClInclude Include="..\..\Source\PostData.hpp"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
