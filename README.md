@@ -12,7 +12,7 @@ Usage:
 ConsoleApp wikiSearchKey
 
 Example:
->>ConsoleApp pizza
+ConsoleApp pizza
 JUCE v5.3.1
 ==================================== Getting Wiki Content =========================================
 ================================ Wiki contents for pizza is =======================================
