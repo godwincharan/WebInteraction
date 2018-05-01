@@ -16,7 +16,6 @@
 #include "GetWikiContent.h"
 #include "Authenticate.hpp"
 #include "PostData.hpp"
-#include "MemoryStruct.h"
 
 void CreateMidiMessageSequence(String,char*);
 
@@ -76,23 +75,23 @@ int main(int argc, char **argv){
     return 0;
 }
 
-void makeAllNoteOff(MidiMessageSequence& sequence ){
-    sequence.addEvent( MidiMessage::allNotesOff(1));
-    sequence.addEvent( MidiMessage::allNotesOff(2));
-    sequence.addEvent( MidiMessage::allNotesOff(3));
-    sequence.addEvent( MidiMessage::allNotesOff(4));
-    sequence.addEvent( MidiMessage::allNotesOff(5));
-    sequence.addEvent( MidiMessage::allNotesOff(6));
-    sequence.addEvent( MidiMessage::allNotesOff(7));
-    sequence.addEvent( MidiMessage::allNotesOff(8));
-    sequence.addEvent( MidiMessage::allNotesOff(9));
-    sequence.addEvent( MidiMessage::allNotesOff(10));
-    sequence.addEvent( MidiMessage::allNotesOff(11));
-    sequence.addEvent( MidiMessage::allNotesOff(12));
-    sequence.addEvent( MidiMessage::allNotesOff(13));
-    sequence.addEvent( MidiMessage::allNotesOff(14));
-    sequence.addEvent( MidiMessage::allNotesOff(15));
-    sequence.addEvent( MidiMessage::allNotesOff(16));
+void makeAllNoteOff(MidiMessageSequence& sequence, double timestamp ){
+    sequence.addEvent( MidiMessage::allNotesOff(1),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(2),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(3),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(4),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(5),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(6),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(7),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(8),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(9),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(10),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(11),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(12),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(13),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(14),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(15),timestamp);
+    sequence.addEvent( MidiMessage::allNotesOff(16),timestamp);
 }
 
 void CreateMidiMessageSequence(String rawData,char* fileName){
@@ -143,11 +142,12 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
         int controllerValue = 0;
         MidiMessageSequence sequence;
         bool isNoteOn = false;
+        double timestamp = 0.0;
         for(int i = 0 ; i < actualContent.length(); i++){
             switch(tolower(actualContent[i])  ){
                 case 'q': case 'r': case 's': case 't': case 'v': case 'w': case 'x': case 'y': case 'z':{
                     if ( isNoteOn){
-                        sequence.addEvent( MidiMessage::noteOff(channelNumber, noteNumber, velocity));
+                        sequence.addEvent( MidiMessage::noteOff(channelNumber, noteNumber, velocity),timestamp);
                         isNoteOn = false;
                     }
                     velocity = 0;
@@ -155,7 +155,7 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
                 }
                 case 'g': case 'h': case 'j': case 'k': case 'l': case 'm': case 'n': case 'p':{
                     if ( !isNoteOn){
-                        sequence.addEvent( MidiMessage::noteOn(channelNumber, noteNumber, velocity));
+                        sequence.addEvent( MidiMessage::noteOn(channelNumber, noteNumber, velocity), timestamp);
                         isNoteOn= true;
                     }
                     velocity = 0;
@@ -163,7 +163,7 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
                 }
                 case ' ':{
                     //Kept program number and note number as same variable as they change from 0 -127
-                    sequence.addEvent( MidiMessage::programChange(channelNumber, programNumber));
+                    sequence.addEvent( MidiMessage::programChange(channelNumber, programNumber),timestamp);
                     break;
                 }
                 case '~': case '!': case '@': case '#': case '$': case '^': case '&': case '(': case ')':{
@@ -172,7 +172,7 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
                     break;
                 }
                 case '*': case '/': case '+': case '-': case '%':{
-                    sequence.addEvent( MidiMessage::controllerEvent(channelNumber,controllerNumber,controllerValue));
+                    sequence.addEvent( MidiMessage::controllerEvent(channelNumber,controllerNumber,controllerValue),timestamp);
                     break;
                 }
                 case 'i': case 'o': case 'u':{
@@ -279,19 +279,19 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
                     break;
                 }
                 case '.':{
-                    makeAllNoteOff(sequence);
+                    makeAllNoteOff(sequence,timestamp);
                     midiFile.addTrack(sequence);
                     sequence.clear();
                     isNoteOn = false;
                     break;
                 }
                 case '\n':{
-                    sequence.addEvent( MidiMessage::midiClock());
+                    sequence.addEvent( MidiMessage::midiClock(),timestamp);
                     break;
                 }
                 case '\0':{
-                    makeAllNoteOff(sequence);
-                    sequence.addEvent( MidiMessage::endOfTrack());
+                    makeAllNoteOff(sequence,timestamp);
+                    sequence.addEvent( MidiMessage::endOfTrack(),timestamp);
                     midiFile.addTrack(sequence);
                     sequence.clear();
                     isNoteOn = false;
@@ -299,6 +299,7 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
                 }
                 default:{
                     velocity = jmax(velocity+0.25,1.0);
+                    timestamp += 1.0;
                     break;
                 }
             }
@@ -310,3 +311,4 @@ void CreateMidiMessageSequence(String rawData,char* fileName){
 }
 
 //{"batchcomplete":"","query":{"normalized":[{"from":"pizza","to":"Pizza"}],"pages":{"24768":{"pageid":24768,"ns":0,"title":"Pizza","extract":"Pizza is a traditional Italian dish consisting of a yeasted flatbread typically topped with tomato sauce and cheese and baked in an oven. It can also be topped with additional vegetables, meats, and condiments, and can be made without cheese.\nThe term pizza was first recorded in the 10th century, in a Latin manuscript from the Southern Italian town of Gaeta in Lazio, on the border with Campania. Modern pizza was invented in Naples, and the dish and its variants have since become popular and common in many areas of the world. In 2009, upon Italy's request, Neapolitan pizza was registered with the European Union as a Traditional Speciality Guaranteed dish. The Associazione Verace Pizza Napoletana (True Neapolitan Pizza Association), a non-profit organization founded in 1984 with headquarters in Naples, aims to \"promote and protect... the true Neapolitan pizza\".\nPizza is one of the most popular foods in the world and a common fast food item in Europe and North America. Many independent or chain restaurants, cafes, and fast food outlets offer pizza. Restaurants or chains specializing in pizza are pizzerias. Pizza delivery is common in some parts of the world.\nPizza is sold fresh or frozen, either whole or in portions. Various types of ovens are used to cook them and many varieties exist. Several similar dishes are prepared from ingredients commonly used in pizza preparation, such as calzone and stromboli. In the United States, pizza is usually eaten out of hand after dividing into slices from a large pizza or small pizzetta as a whole. In Italy, pizza is eaten with a fork and knife in restaurants, but is also sold to take away and eaten out of hand. Frozen pizza became popular in the late 20th century."}}}}
+
