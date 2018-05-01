@@ -8,8 +8,5 @@
 #ifndef PostData_hpp
 #define PostData_hpp
 
-#include <stdio.h>
-#include "MemoryStruct.h"
-
-int postData(MemoryStruct* chunk , const char* url);
+int postData(MemoryBlock* pMemoryBlock , const char* url);
 #endif /* PostData_hpp */

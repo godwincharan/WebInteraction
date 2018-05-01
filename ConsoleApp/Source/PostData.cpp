@@ -4,35 +4,29 @@
 //
 //  Created by Charan DSouza on 29/04/18.
 //
-
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "PostData.hpp"
-#include "MemoryStruct.h"
-#include <stdio.h>
-#include <string.h>
 #include <curl/curl.h>
 
-
-int dataCopiedSoFar =0;
-static size_t read_callback(void *dest, size_t size, size_t nmemb, void *userp)
-{
-    MemoryStruct *wt = (MemoryStruct *)userp;
+size_t dataCopiedSoFar =0;
+static size_t read_callback(void *dest, size_t size, size_t nmemb, MemoryBlock* pMemoryBlock){
     size_t buffer_size = size*nmemb;
     
-    if(wt->size-dataCopiedSoFar) {
+    if(pMemoryBlock->getSize()-dataCopiedSoFar) {
         /* copy as much as possible from the source to the destination */
-        size_t copy_this_much = wt->size - dataCopiedSoFar;
-        if(copy_this_much > buffer_size)
+        size_t copy_this_much = pMemoryBlock->getSize() - dataCopiedSoFar;
+        if(copy_this_much > buffer_size){
             copy_this_much = buffer_size;
-        memcpy(dest, wt->memory + dataCopiedSoFar, copy_this_much);
+        }
+        pMemoryBlock->copyTo(dest,(int)dataCopiedSoFar, copy_this_much);
         dataCopiedSoFar += copy_this_much;
         return copy_this_much; /* we copied this many bytes */
     }
-    
     return 0; /* no more data left to deliver */
 }
 
 
-int postData(MemoryStruct* chunk , const char* url){
+int postData(MemoryBlock* pMemoryBlock, const char* url){
     int iReturnValue = -1;
     /* get a curl handle */
     CURL *curl = curl_easy_init();
@@ -50,8 +44,8 @@ int postData(MemoryStruct* chunk , const char* url){
         
         /* pointer to pass to our read function */
         dataCopiedSoFar = 0;
-        curl_easy_setopt(curl, CURLOPT_READDATA, chunk);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)chunk->size);
+        curl_easy_setopt(curl, CURLOPT_READDATA, pMemoryBlock);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)pMemoryBlock->getSize());
 
         //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
         

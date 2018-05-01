@@ -12,7 +12,6 @@
       <FILE id="gnkWYO" name="GetWikiContent.h" compile="0" resource="0"
             file="Source/GetWikiContent.h"/>
       <FILE id="ptRrki" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="TxKoRz" name="MemoryStruct.h" compile="0" resource="0" file="Source/MemoryStruct.h"/>
       <FILE id="tzLkg5" name="PostData.cpp" compile="1" resource="0" file="Source/PostData.cpp"/>
       <FILE id="hsA8Oa" name="PostData.hpp" compile="0" resource="0" file="Source/PostData.hpp"/>
     </GROUP>

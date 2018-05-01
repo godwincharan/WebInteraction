@@ -4,29 +4,17 @@
 //
 //  Created by Charan DSouza on 29/04/18.
 //
-
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "GetWikiContent.h"
 #include <curl/curl.h>
-#include <string.h>
-static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp){
+
+static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, MemoryBlock* pMemoryBlock){
     size_t realsize = size * nmemb;
-    MemoryStruct *mem = (MemoryStruct *)userp;
-    
-    mem->memory = (char*)realloc(mem->memory, mem->size + realsize + 1);
-    if(mem->memory == NULL) {
-        /* out of memory! */
-        printf("not enough memory (realloc returned NULL)\n");
-        return 0;
-    }
-    
-    memcpy(&(mem->memory[mem->size]), contents, realsize);
-    mem->size += realsize;
-    mem->memory[mem->size] = '\0';
-    
+    pMemoryBlock->append(contents,realsize);
     return realsize;
 }
 
-int getWikiContent(MemoryStruct* chunk,char* title){
+int getWikiContent(MemoryBlock* pMemoryBlock,char* title){
     int iReturnValue = -1;
     /* get a curl handle */
     CURL *curl = curl_easy_init();
@@ -43,7 +31,7 @@ int getWikiContent(MemoryStruct* chunk,char* title){
         /* send all data to this function  */
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
         /* we pass our 'chunk' struct to the callback function */
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)chunk);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)pMemoryBlock);
         
         /* some servers don't like requests that are made without a user-agent
          field, so we provide one */

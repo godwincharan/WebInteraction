@@ -18,7 +18,7 @@
 #include "PostData.hpp"
 #include "MemoryStruct.h"
 
-void CreateMidiMessageSequence(char*,char*);
+void CreateMidiMessageSequence(String,char*);
 
 int main(int argc, char **argv){
     if(argc < 2){
@@ -34,24 +34,43 @@ int main(int argc, char **argv){
         return 1;
     }
     
-    MemoryStruct wikiData;
+    printf("==================================== Getting Wiki Content =========================================\n");
+    MemoryBlock wikiData;
     char* wikiPage = argv[1];
     if ( getWikiContent(&wikiData, wikiPage) == 0){
-        printf("%s\n", wikiData.memory);
+        printf("================================ Wiki contents for %s is =======================================\n",wikiPage);
+        printf("%s\n", wikiData.toString().toRawUTF8());
+        printf("============================== Getting Wiki data success =======================================\n");
+    }
+    else{
+        printf("==================Something went wrong in getting Wiki Content for title : %s ================\n",wikiPage);
+        return 1;
     }
     
-    MemoryStruct authData;
+    printf("\n\n================================ Authenticatiing user =========================================\n");
+    MemoryBlock authData;
     char url[255]="https://httpbin.org/digest-auth/auth/AudioWorks/Charlie/MD5/never";
     if ( authenticateUser(&authData, url) == 0){
-        printf("%s\n", authData.memory);
+        printf("================================ Authentication Result ========================================\n");
+        printf("%s\n", authData.toString().toRawUTF8());
+        printf("================================ Authentication success ========================================\n");
+    }
+    else{
+        printf("======================= Something went wrong in authenticating the user =======================\n");
+        return 1;
     }
 
+    printf("\n\n==================================== Postiung Data ============================================\n");
     char uploadUrl[255]="https://httpbin.org/post";
     if ( postData(&wikiData, uploadUrl) == 0){
-        printf("Uploaded data succefully");
+        printf("============================== Succefully Posted data =========================================\n");
+    }
+    else{
+        printf("====================== Something went wrong in posting the data ===============================\n");
+        return 1;
     }
     
-    CreateMidiMessageSequence(wikiData.memory,wikiPage);
+    CreateMidiMessageSequence(wikiData.toString(),wikiPage);
     curl_global_cleanup();
     
     return 0;
@@ -76,9 +95,9 @@ void makeAllNoteOff(MidiMessageSequence& sequence ){
     sequence.addEvent( MidiMessage::allNotesOff(16));
 }
 
-void CreateMidiMessageSequence(char* data,char* fileName){
-    String str;
-    var mainVar = JSON::parse (String(data));
+void CreateMidiMessageSequence(String rawData,char* fileName){
+    String actualContent;
+    var mainVar = JSON::parse (rawData);
     if (DynamicObject* mainObj = mainVar.getDynamicObject()){
         NamedValueSet& mainProps (mainObj->getProperties());
         for ( auto begin = mainProps.begin(), end = mainProps.end();begin != end; ++begin){
@@ -99,7 +118,7 @@ void CreateMidiMessageSequence(char* data,char* fileName){
                                             if( begin->name == StringRef("extract")){
                                                 var pageExtractVar (pageNumberProps[begin->name]);
                                                 if ( pageExtractVar.isString()){
-                                                    str = pageExtractVar.toString();
+                                                    actualContent = pageExtractVar.toString();
                                                 }
                                             }
                                         }
@@ -112,8 +131,8 @@ void CreateMidiMessageSequence(char* data,char* fileName){
             }
         }
     }
-    printf("\nMidiMessage string\n%s\n", str.toRawUTF8());
-    if ( str.length()){
+    //printf("\nMidiMessage string\n%s\n", actualContent.toRawUTF8());
+    if ( actualContent.length()){
         MidiFile midiFile;
         
         float velocity = 0;
@@ -124,8 +143,8 @@ void CreateMidiMessageSequence(char* data,char* fileName){
         int controllerValue = 0;
         MidiMessageSequence sequence;
         bool isNoteOn = false;
-        for(int i = 0 ; i < str.length(); i++){
-            switch(tolower(str[i])  ){
+        for(int i = 0 ; i < actualContent.length(); i++){
+            switch(tolower(actualContent[i])  ){
                 case 'q': case 'r': case 's': case 't': case 'v': case 'w': case 'x': case 'y': case 'z':{
                     if ( isNoteOn){
                         sequence.addEvent( MidiMessage::noteOff(channelNumber, noteNumber, velocity));

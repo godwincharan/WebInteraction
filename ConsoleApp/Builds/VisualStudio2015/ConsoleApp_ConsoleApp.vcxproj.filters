@@ -2118,9 +2118,6 @@
     <ClInclude Include="..\..\Source\GetWikiContent.h">
       <Filter>ConsoleApp\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MemoryStruct.h">
-      <Filter>ConsoleApp\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\PostData.hpp">
       <Filter>ConsoleApp\Source</Filter>
     </ClInclude>

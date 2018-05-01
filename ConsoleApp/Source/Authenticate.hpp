@@ -8,8 +8,5 @@
 #ifndef Authenticate_hpp
 #define Authenticate_hpp
 
-#include <stdio.h>
-#include "MemoryStruct.h"
-
-int authenticateUser(MemoryStruct* chunk,const char* url);
+int authenticateUser(MemoryBlock* chunk,const char* url);
 #endif /* Authenticate_hpp */

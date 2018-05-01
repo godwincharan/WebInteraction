@@ -4,30 +4,17 @@
 //
 //  Created by Charan DSouza on 29/04/18.
 //
-
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "Authenticate.hpp"
 #include <curl/curl.h>
-#include <string.h>
 
-static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp){
+static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, MemoryBlock* pMemoryBlock){
     size_t realsize = size * nmemb;
-    MemoryStruct *mem = (MemoryStruct *)userp;
-    
-    mem->memory = (char*)realloc(mem->memory, mem->size + realsize + 1);
-    if(mem->memory == NULL) {
-        /* out of memory! */
-        printf("not enough memory (realloc returned NULL)\n");
-        return 0;
-    }
-    
-    memcpy(&(mem->memory[mem->size]), contents, realsize);
-    mem->size += realsize;
-    mem->memory[mem->size] = '\0';
-    
+    pMemoryBlock->append(contents, nmemb*size);
     return realsize;
 }
 
-int authenticateUser(MemoryStruct* chunk,const char* url){
+int authenticateUser(MemoryBlock* pMemoryBlock,const char* url){
     int iReturnValue = -1;
     /* get a curl handle */
     CURL *curl = curl_easy_init();
@@ -45,7 +32,7 @@ int authenticateUser(MemoryStruct* chunk,const char* url){
         /* send all data to this function  */
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
         /* we pass our 'chunk' struct to the callback function */
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)chunk);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)pMemoryBlock);
         
         /* Now run off and do what you've been told! */
         CURLcode res = curl_easy_perform(curl);

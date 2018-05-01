@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{60076192-AD2D-F414-F195-6AC38FE6FB89}</ProjectGuid>
+    <ProjectGuid>{5C45872D-2E39-340B-E019-1C918A2F63DC}</ProjectGuid>
     <PlatformToolset>v140</PlatformToolset>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -1765,7 +1765,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\Authenticate.hpp"/>
     <ClInclude Include="..\..\Source\GetWikiContent.h"/>
-    <ClInclude Include="..\..\Source\MemoryStruct.h"/>
     <ClInclude Include="..\..\Source\PostData.hpp"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
